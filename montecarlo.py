@@ -15,12 +15,13 @@ def f(x):
     return 2 * x
 
 
-X_all = np.random.uniform(0, 1, (100,))
+n_max = 100
+X_all = np.random.uniform(0, 1, (n_max,))
 Y_all = f(X_all)
 
 n = st.slider('Number of samples',
               min_value=1,
-              max_value=len(X_all),
+              max_value=n_max,
               step=1)
 X = X_all[:n]
 Y = f(X)
@@ -40,15 +41,15 @@ samples_mean = chart.mark_rule(
 )
 st.altair_chart(samples + samples_mean)
 
-N = np.arange(len(X_all)) + 1
+N = np.arange(n_max) + 1
 A = np.zeros_like(X_all)
-for i in range(len(X_all)):
+for i in range(n_max):
     A[i] = Y_all[:i + 1].mean()
+
 source = pd.DataFrame({'Number of samples': N, 'Average of y': A})
 chart = alt.Chart(source).mark_line(color='violet').encode(
     x='Number of samples',
     y=alt.Y('Average of y', scale=alt.Scale(domain=[0.5, 1.5])),
     tooltip=['Number of samples', 'Average of y']
 )
-
 st.altair_chart(chart)
