@@ -15,7 +15,7 @@ def f(x):
     return 2 * x
 
 
-n_max = 100
+n_max = 200
 X_all = np.random.uniform(0, 1, (n_max,))
 Y_all = f(X_all)
 
