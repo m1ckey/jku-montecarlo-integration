@@ -102,18 +102,17 @@ Y = f(X)
 # result montecarlo
 st.write(f'$F^n={montecarlo(a, b, X, f):.3f}$')
 
-source = pd.DataFrame({'x': X, 'y': Y})
+source = pd.DataFrame({'x': X, 'f(x)': Y})
 chart = alt.Chart(source)
 samples = chart.mark_point().encode(
     x=alt.X('x', scale=alt.Scale(domain=[a, b])),
-    y=alt.Y('y', scale=alt.Scale(domain=[f(a), f(b)])),
-    tooltip=['x', 'y']
+    y=alt.Y('f(x)', scale=alt.Scale(domain=[f(a), f(b)]), title='f(x)'),
 )
 samples_mean = chart.mark_rule(
     color='violet',
-    tooltip='arithmetic mean'
+    tooltip='arithmetic mean of f(x)'
 ).encode(
-    y=alt.Y('average(y)')
+    y=alt.Y('average(f(x))', title='mean f(x)')
 )
 st.altair_chart(samples + samples_mean)
 
@@ -122,10 +121,9 @@ A = np.zeros_like(X)
 for i in range(n):
     A[i] = montecarlo(a, b, X[:i + 1], f)
 
-source = pd.DataFrame({'Number of samples': N, 'F(x)': A})
+source = pd.DataFrame({'n': N, 'mean f(x)': A})
 chart = alt.Chart(source).mark_line(color='violet').encode(
-    x='Number of samples',
-    y=alt.Y('F(x)', scale=alt.Scale(domain=[source.min()[1], source.max()[1]])),
-    tooltip=['Number of samples', 'F(x)']
+    x='n',
+    y=alt.Y('mean f(x)', scale=alt.Scale(domain=[source.min()[1], source.max()[1]])),
 )
 st.altair_chart(chart)
