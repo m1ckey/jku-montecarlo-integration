@@ -4,7 +4,6 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 from matplotlib.patches import Polygon
-from scipy import stats
 
 np.random.seed(1)
 
@@ -88,10 +87,8 @@ st.latex(r' Pr\left\lbrace \lim\limits_{n\to \infty} I  = F \right\rbrace = 1')
 x_rand = np.random.uniform(a, b, 1000)
 st.write(f'If we set $n=1000$ we get an estimate of $F={montecarlo(a, b, x_rand, f):.3f}$ , a much better result')
 
-
 # start of interactive example
 st.header('1D Interactive Example')
-
 
 f_user = st.text_input('f(x): function as python code!'
                        ' [Addition: + , Subtraction: -, Multiplication: *, Division: /, Power: **]', value='2*x')
@@ -100,9 +97,8 @@ b = st.number_input('Upper Bound (b)', value=1., step=0.1, min_value=a)
 n_max = int(st.number_input('Max number of samples', min_value=1, step=1, value=2000))
 n = int(st.slider('Number of samples (n)', min_value=1, max_value=n_max, step=1, value=10))
 
-
 # create function from string
-#f_u = "f=lambda x :"
+# f_u = "f=lambda x :"
 f_u = f"""
 def userfun(x):
     return {f_user}
@@ -111,7 +107,6 @@ cc = f_u
 exec(cc)
 
 test = userfun(3)
-
 
 X_all = np.random.uniform(a, b, n_max)
 X = X_all[:n]
