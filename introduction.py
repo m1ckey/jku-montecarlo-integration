@@ -7,12 +7,13 @@ from matplotlib.patches import Polygon
 
 np.random.seed(1)
 
+# region Introduction to Monte Carlo Integration
 st.title('Introduction to Monte Carlo Integration')
 st.write('The basic idea is to empirically estimate the definite integral of a function.')
 st.write('')
 st.write('We will use a univariate function as a simple example:')
 st.latex('f(x) = 2x')
-st.latex('F = \int_{a}^{b} f(x) \,dx')
+st.latex(r'F = \int_{a}^{b} f(x) \,dx')
 
 st.write('Geometric interpretation for $a=0$, $b=1$:')
 
@@ -86,8 +87,10 @@ st.latex(r' Pr\left\lbrace \lim\limits_{n\to \infty} I  = F \right\rbrace = 1')
 
 x_rand = np.random.uniform(a, b, 1000)
 st.write(f'If we set $n=1000$ we get an estimate of $F={montecarlo(a, b, x_rand, f):.3f}$ , a much better result')
+# endregion
 
-# start of interactive example
+
+# region 1D Interactive Example
 st.header('1D Interactive Example')
 
 f_user = st.text_input('f(x): function as python code!'
@@ -99,18 +102,25 @@ n = int(st.slider('Number of samples (n)', min_value=1, max_value=n_max, step=1,
 
 # create function from string
 # f_u = "f=lambda x :"
-f_u = f"""
-def userfun(x):
+
+
+# not actually used, will be overwritten by user input. Helps editors with error finding.
+def user_function(x):
+    return x
+
+
+user_function_code = f"""
+def user_function(x):
     return {f_user}
 """
-cc = f_u
+cc = user_function_code
 exec(cc)
 
-test = userfun(3)
+test = user_function(3)
 
 X_all = np.random.uniform(a, b, n_max)
 X = X_all[:n]
-Y = userfun(X)
+Y = user_function(X)
 
 # result montecarlo
 st.subheader('1D Crude Monte Carlo method')
@@ -147,3 +157,10 @@ chart = alt.Chart(source).mark_line(color='violet').encode(
     title='Montecarlo'
 )
 st.altair_chart(chart)
+
+# endregion
+
+# region 2D Interactive Example
+st.header('2D Interactive Example')
+
+# endregion
