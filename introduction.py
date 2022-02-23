@@ -124,7 +124,7 @@ Y = user_function(X)
 
 # result montecarlo
 st.subheader('1D Crude Monte Carlo method')
-st.write(f'$I={montecarlo(a, b, X, f):.3f}$')
+st.write(f'$I={montecarlo(a, b, X, user_function):.3f}$')
 
 source = pd.DataFrame({'x': X, 'f(x)': Y})
 chart = alt.Chart(source)
@@ -147,7 +147,7 @@ st.altair_chart(samples + samples_mean)
 N = np.arange(n) + 1
 A = np.zeros_like(X)
 for i in range(n):
-    A[i] = montecarlo(a, b, X[:i + 1], f)
+    A[i] = montecarlo(a, b, X[:i + 1], user_function)
 
 source = pd.DataFrame({'n': N, 'I': A})
 chart = alt.Chart(source).mark_line(color='violet').encode(
