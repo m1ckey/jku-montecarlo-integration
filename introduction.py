@@ -97,7 +97,7 @@ f_user = st.text_input('f(x): function as python code!'
                        ' [Addition: + , Subtraction: -, Multiplication: *, Division: /, Power: **]', value='2*x')
 a = st.number_input('Lower Bound (a)', value=0., step=0.1)
 b = st.number_input('Upper Bound (b)', value=1., step=0.1, min_value=a)
-n_max = int(st.number_input('Max number of samples', min_value=1, step=1, value=2000))
+n_max = 2000
 n = int(st.slider('Number of samples (n)', min_value=1, max_value=n_max, step=1, value=10))
 
 # create function from string
