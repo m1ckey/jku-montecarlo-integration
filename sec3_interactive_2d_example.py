@@ -23,11 +23,14 @@ def interactive_2d_example():
     exec(user_function_code, globals(), ldic)
     user_function = ldic["user_function"]
 
-    a1 = st.number_input('x1 lower Bound (a1)', value=-1.5, step=0.1)
-    b1 = st.number_input('x1 upper Bound (b1)', value=1.5, step=0.1, min_value=a1)
+    col1, col2 = st.columns(2)
 
-    a2 = st.number_input('x2 lower Bound (a2)', value=-1.5, step=0.1)
-    b2 = st.number_input('x2 upper Bound (b2)', value=1.5, step=0.1, min_value=a2)
+    with col1:
+        a1 = st.number_input('x1 lower Bound (a1)', value=-1.5, step=0.1)
+        a2 = st.number_input('x2 lower Bound (a2)', value=-1.5, step=0.1)
+    with col2:
+        b1 = st.number_input('x1 upper Bound (b1)', value=1.5, step=0.1, min_value=a1)
+        b2 = st.number_input('x2 upper Bound (b2)', value=1.5, step=0.1, min_value=a2)
 
     n_max = 2000
     n = n_max  # int(st.slider('Number of samples (n)', min_value=1, max_value=n_max, step=1, value=300, key=KEY_OFFSET + 5))
@@ -47,7 +50,7 @@ def interactive_2d_example():
     st.write(f'After $N={n}$ iterations we get the approximation from the ' +
              'sequence of random numbers $(x_n)_{n \in \mathbb{N}^2}$')
 
-    st.latex(f'\\int_{{{a1}}}^{{{b1}}} \\int_{{{a2}}}^{{{b2}}} f(x_1,x_2) dx_1 dx_2 ' +
+    st.latex(f'\\int_{{{a1}}}^{{{b1}}} \\int_{{{a2}}}^{{{b2}}} f(x_1,x_2) dx_2 dx_1 ' +
              '\\approx \\frac{(b_1-a_1)(b_2 - a_2)}{N} \sum_{i=1}^{N} f(x_k) ' +
              f'\\approx {Y_cumulative_approximation[-1]:.2f}')
 

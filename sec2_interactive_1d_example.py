@@ -17,15 +17,17 @@ def interactive_1d_example():
     st.write("np.where(x < 0.5, 0, 1)")
     st.write("np.sin(x * 2 * np.pi)")
 
-    a = st.number_input('Lower Bound (a)', value=0., step=0.1)
-    b = st.number_input('Upper Bound (b)', value=1., step=0.1, min_value=a)
+    col1, col2 = st.columns(2)
+
+    with col1:
+        a = st.number_input('Lower Bound (a)', value=0., step=0.1)
+    with col2:
+        b = st.number_input('Upper Bound (b)', value=1., step=0.1, min_value=a)
     n_max = 2000
     n = int(st.slider('Number of samples (n)', min_value=1, max_value=n_max, step=1, value=10))
 
-
     # create function from string
     # f_u = "f=lambda x :"
-
 
     # not actually used, will be overwritten by user input. Helps editors with error finding + type checking.
     def user_function(x):
