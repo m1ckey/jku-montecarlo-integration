@@ -5,6 +5,8 @@ import pandas as pd
 import streamlit as st
 from matplotlib.patches import Polygon
 
+from interactive_2d_example import interactive_2d_example
+
 np.random.seed(1)
 
 # region Introduction to Monte Carlo Integration
@@ -95,16 +97,23 @@ st.header('1D Interactive Example')
 
 f_user = st.text_input('f(x): function as python code!'
                        ' [Addition: + , Subtraction: -, Multiplication: *, Division: /, Power: **]', value='2*x')
+
+st.write("Some example functions")
+st.write("x**2")
+st.write("np.where(x < 0.5, 0, 1)")
+st.write("np.sin(x * 2 * np.pi)")
+
 a = st.number_input('Lower Bound (a)', value=0., step=0.1)
 b = st.number_input('Upper Bound (b)', value=1., step=0.1, min_value=a)
 n_max = 2000
 n = int(st.slider('Number of samples (n)', min_value=1, max_value=n_max, step=1, value=10))
 
+
 # create function from string
 # f_u = "f=lambda x :"
 
 
-# not actually used, will be overwritten by user input. Helps editors with error finding.
+# not actually used, will be overwritten by user input. Helps editors with error finding + type checking.
 def user_function(x):
     return x
 
@@ -113,10 +122,7 @@ user_function_code = f"""
 def user_function(x):
     return {f_user}
 """
-cc = user_function_code
-exec(cc)
-
-test = user_function(3)
+exec(user_function_code)
 
 X_all = np.random.uniform(a, b, n_max)
 X = X_all[:n]
@@ -160,7 +166,4 @@ st.altair_chart(chart)
 
 # endregion
 
-# region 2D Interactive Example
-st.header('2D Interactive Example')
-
-# endregion
+interactive_2d_example()
