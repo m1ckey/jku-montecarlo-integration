@@ -27,12 +27,6 @@ def interactive_1d_example():
     n = int(st.slider('Number of samples (n)', min_value=1, max_value=n_max, step=1, value=10))
 
     # create function from string
-    # f_u = "f=lambda x :"
-
-    # not actually used, will be overwritten by user input. Helps editors with error finding + type checking.
-    def user_function(x):
-        return x
-
     user_function_code = f"def user_function(x):\n    return {f_user}"
     # exec does not change local function scope, therefore we have to manage the
     # overwriting of user_function ourselves.
