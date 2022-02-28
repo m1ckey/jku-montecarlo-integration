@@ -7,6 +7,9 @@ from shared import montecarlo
 
 
 def introduction():
+    st.title('Monte Carlo Integration')
+    st.write('by Christian Michael Krickl, Oliver Gstöttenbauer and Richard Degenfellner')
+
     st.title('Introduction to Monte Carlo Integration')
     st.write('The basic idea is to empirically estimate the definite integral of a function.')
     st.write('')
